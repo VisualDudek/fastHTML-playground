@@ -15,7 +15,7 @@ app, rt = fast_app(
 
 @rt("/")
 def get():
-    return Titled("FastHTML", P("Let's do this!"))
+    return Titled("FastHTML", P("Let's do this!"), A(href="/hello")("Go to Hello page"))
 
 
 @rt("/hello")
