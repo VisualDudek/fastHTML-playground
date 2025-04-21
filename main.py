@@ -15,7 +15,17 @@ app, rt = fast_app(
 
 @rt("/")
 def get():
-    return Titled("FastHTML", P("Let's do this!"), A(href="/hello")("Go to Hello page"))
+    return Titled(
+        "FastHTML",
+        P("Let's do this!"),
+        A(href="/hello")("Go to Hello page"),
+        Div(P("Hello"), hx_get="/change"),
+    )
+
+
+@rt("/change")
+def get():
+    return P("Nice to be here!")
 
 
 @rt("/hello")
