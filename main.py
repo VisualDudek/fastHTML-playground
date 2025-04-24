@@ -66,28 +66,28 @@ copy_script = Script(
 )
 
 
+# @rt("/")
+# def get():
+#     return Titled(
+#         "FastHTML",
+#         A(href="/grid")("Go to Grid page"),
+#         copy_script,
+#         P("Let's do this!", onclick="copyToClipboardAndNotify(this.innerText)"),
+#         A(href="/hello")("Go to Hello page"),
+#         Div(
+#             P("Hello", onclick="copyToClipboardAndNotify(this.innerText)"),
+#             hx_get="/change",
+#         ),
+#         Div(P("Hello")),
+#     )
+
+
+# @rt("/change")
+# def get():
+#     return P("Nice to be here!")
+
+
 @rt("/")
-def get():
-    return Titled(
-        "FastHTML",
-        A(href="/grid")("Go to Grid page"),
-        copy_script,
-        P("Let's do this!", onclick="copyToClipboardAndNotify(this.innerText)"),
-        A(href="/hello")("Go to Hello page"),
-        Div(
-            P("Hello", onclick="copyToClipboardAndNotify(this.innerText)"),
-            hx_get="/change",
-        ),
-        Div(P("Hello")),
-    )
-
-
-@rt("/change")
-def get():
-    return P("Nice to be here!")
-
-
-@rt("/grid")
 def get():
     def prompt_card(promot: str):
         return Div(
