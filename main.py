@@ -2,6 +2,8 @@
 # ruff: noqa
 from fasthtml.common import *
 from dotenv import load_dotenv
+from monsterui.all import *
+
 
 load_dotenv()
 
@@ -22,6 +24,7 @@ print(f"{DEBUG=}\n{LIVE=}")
 hdrs = (
     MarkdownJS(),
     HighlightJS(langs=["python", "javascript", "html", "css"]),
+    *Theme.blue.headers(highlightjs=True),
 )
 
 app, rt = fast_app(
@@ -110,9 +113,11 @@ def get():
             "Look at all of my github repos and write an editorialized summary of my journey as a developer"
         ),
     ]
+    div_cls = "py-2 px-3 mt-4 mb-2 bg-{}-400/70 shadow-md rounded-lg rounded-tl-3xl"
     return Titled(
         "Prompt Gallery",
         P("Hover over a prompt and click to copy it to your clipboard"),
+        H2("menu", cls=div_cls.format("yellow")),
         copy_script,
         Grid(
             *content,
