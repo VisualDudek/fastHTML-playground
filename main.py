@@ -106,6 +106,9 @@ def get():
             #     border: 1px solid #ccc;
                 text-align: center;
             }
+            .cell:hover {
+                background-color: #474646; /* Change background on hover */
+            }
         """
         ),
     )
