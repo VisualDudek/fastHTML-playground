@@ -121,7 +121,7 @@ def get():
                 display: grid;
                 # grid-template-columns: 1fr 1fr; /* Two columns */
                 # grid-template-rows: auto auto; /* Two rows */
-                grid-template-columns: 1fr; /* Two columns */
+                grid-template-columns: 1fr; /* Single column */
                 grid-template-rows: auto; /* Two rows */
                 gap: 10px; /* Space between cells */
             }
