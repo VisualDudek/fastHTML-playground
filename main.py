@@ -84,8 +84,12 @@ def get():
         prompt_card(
             "List the top 10 most populat repos on GitHub and summarize what they have in common."
         ),
-        prompt_card("hello"),
-        prompt_card("ajaja"),
+        prompt_card(
+            "Summarize the changes in the github/github-mcp-server repo since the v0.1.0 release"
+        ),
+        prompt_card(
+            "Rate the open pull requests on the github/github-mcp-server repo based on how cool you think they are."
+        ),
     ]
     return Titled(
         "Prompt Gallery",
