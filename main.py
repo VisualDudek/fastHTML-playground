@@ -108,6 +108,7 @@ def get():
             }
             .cell:hover {
                 background-color: #474646; /* Change background on hover */
+                font-weight: bold; /* Change font to bold on hover */
             }
         """
         ),
