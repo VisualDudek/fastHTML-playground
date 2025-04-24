@@ -15,11 +15,49 @@ app, rt = fast_app(
 
 @rt("/")
 def get():
+    copy_script = Script(
+        """
+        function copyToClipboardAndNotify(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                console.log('Copied to clipboard:', text);
+                element.style.fontWeight = 'bold';
+                showToast('Text copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.innerText = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.backgroundColor = '#333';
+            toast.style.color = '#fff';
+            toast.style.padding = '10px 20px';
+            toast.style.borderRadius = '5px';
+            toast.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.3)';
+            toast.style.zIndex = '1000';
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s';
+                setTimeout(() => toast.remove(), 500);
+            }, 2000);
+        }
+        """
+    )
     return Titled(
         "FastHTML",
-        P("Let's do this!"),
+        copy_script,
+        P("Let's do this!", onclick="copyToClipboardAndNotify(this.innerText, this)"),
         A(href="/hello")("Go to Hello page"),
-        Div(P("Hello"), hx_get="/change"),
+        Div(
+            P("Hello", onclick="copyToClipboardAndNotify(this.innerText, this)"),
+            hx_get="/change",
+        ),
     )
 
 
@@ -51,7 +89,7 @@ Here are some _markdown_ elements.
 
 @rt("/markdown")
 def get(req):
-    return Titled("Markdown rendering example", Div(content, cls="marked"))
+    return Titled("Markdown rendering example", Div(Pre(Code(content))))
 
 
 code_example = """
