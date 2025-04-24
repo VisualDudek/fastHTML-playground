@@ -89,6 +89,7 @@ def get():
     ]
     return Titled(
         "Prompt Gallery",
+        P("Hover over a prompt and click to copy it to your clipboard"),
         copy_script,
         Grid(
             *content,
@@ -98,8 +99,10 @@ def get():
             """
             .grid {
                 display: grid;
-                grid-template-columns: 1fr 1fr; /* Two columns */
-                grid-template-rows: auto auto; /* Two rows */
+                # grid-template-columns: 1fr 1fr; /* Two columns */
+                # grid-template-rows: auto auto; /* Two rows */
+                grid-template-columns: 1fr; /* Two columns */
+                grid-template-rows: auto; /* Two rows */
                 gap: 10px; /* Space between cells */
             }
             .cell {
