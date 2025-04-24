@@ -2,6 +2,8 @@
 # ruff: noqa
 from fasthtml.common import *
 
+# from monsterui.all import *
+
 hdrs = (
     MarkdownJS(),
     HighlightJS(langs=["python", "javascript", "html", "css"]),
@@ -9,47 +11,50 @@ hdrs = (
 
 app, rt = fast_app(
     debug=True,
+    live=True,
     hdrs=hdrs,
+)
+
+copy_script = Script(
+    """
+    function copyToClipboardAndNotify(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            console.log('Copied to clipboard:', text);
+            showToast('Text copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+        });
+    }
+
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.innerText = message;
+        toast.style.position = 'fixed';
+        toast.style.bottom = '20px';
+        toast.style.right = '20px';
+        toast.style.backgroundColor = '#333';
+        toast.style.color = '#fff';
+        toast.style.padding = '10px 20px';
+        toast.style.borderRadius = '5px';
+        toast.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.3)';
+        toast.style.zIndex = '1000';
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s';
+            setTimeout(() => toast.remove(), 500);
+        }, 2000);
+    }
+    """
 )
 
 
 @rt("/")
 def get():
-    copy_script = Script(
-        """
-        function copyToClipboardAndNotify(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                console.log('Copied to clipboard:', text);
-                showToast('Text copied to clipboard!');
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-            });
-        }
-
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.innerText = message;
-            toast.style.position = 'fixed';
-            toast.style.bottom = '20px';
-            toast.style.right = '20px';
-            toast.style.backgroundColor = '#333';
-            toast.style.color = '#fff';
-            toast.style.padding = '10px 20px';
-            toast.style.borderRadius = '5px';
-            toast.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.3)';
-            toast.style.zIndex = '1000';
-            document.body.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.5s';
-                setTimeout(() => toast.remove(), 500);
-            }, 2000);
-        }
-        """
-    )
     return Titled(
         "FastHTML",
+        A(href="/grid")("Go to Grid page"),
         copy_script,
         P("Let's do this!", onclick="copyToClipboardAndNotify(this.innerText)"),
         A(href="/hello")("Go to Hello page"),
@@ -68,13 +73,23 @@ def get():
 
 @rt("/grid")
 def get():
+    def prompt_card(promot: str):
+        return Div(
+            promot,
+            onclick="copyToClipboardAndNotify(this.innerText)",
+            cls="cell",
+        )
+
+    content = [
+        prompt_card("prompt 1"),
+        prompt_card("hello"),
+        prompt_card("ajaja"),
+    ]
     return Titled(
         "Grid Layout Example",
+        copy_script,
         Grid(
-            Div("Cell 1", cls="cell"),
-            Div("Cell 2", cls="cell"),
-            Div("Cell 3", cls="cell"),
-            Div("Cell 4", cls="cell"),
+            *content,
             cls="grid",
         ),
         Style(
@@ -144,4 +159,6 @@ def get(req):
     )
 
 
-serve()
+serve(
+    host="127.0.0.1"
+)  # Need this bc js copy script wont run on not secure default 0.0.0.0 host
