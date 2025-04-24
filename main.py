@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 debug_str = os.getenv("DEBUG", "false")
+live_str = os.getenv("LIVE", "false")
 
 
 def str_to_bool(value: str) -> bool:
@@ -13,6 +14,9 @@ def str_to_bool(value: str) -> bool:
 
 
 DEBUG = str_to_bool(debug_str)
+LIVE = str_to_bool(live_str)
+
+print(f"{DEBUG=}\n{LIVE=}")
 
 
 hdrs = (
@@ -21,10 +25,11 @@ hdrs = (
 )
 
 app, rt = fast_app(
-    debug=True,
-    live=True,
+    debug=DEBUG,
+    live=LIVE,
     hdrs=hdrs,
 )
+
 
 copy_script = Script(
     """
