@@ -57,6 +57,7 @@ def get():
             P("Hello", onclick="copyToClipboardAndNotify(this.innerText)"),
             hx_get="/change",
         ),
+        Div(P("Hello")),
     )
 
 
