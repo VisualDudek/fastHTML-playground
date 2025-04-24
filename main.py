@@ -106,6 +106,9 @@ def get():
         prompt_card(
             "Rate the open pull requests on the github/github-mcp-server repo based on how cool you think they are."
         ),
+        prompt_card(
+            "Look at all of my github repos and write an editorialized summary of my journey as a developer"
+        ),
     ]
     return Titled(
         "Prompt Gallery",
