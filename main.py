@@ -1,8 +1,19 @@
 # type: ignore
 # ruff: noqa
 from fasthtml.common import *
+from dotenv import load_dotenv
 
-# from monsterui.all import *
+load_dotenv()
+
+debug_str = os.getenv("DEBUG", "false")
+
+
+def str_to_bool(value: str) -> bool:
+    return value.lower() in ("true", "1", "yes", "on")
+
+
+DEBUG = str_to_bool(debug_str)
+
 
 hdrs = (
     MarkdownJS(),
