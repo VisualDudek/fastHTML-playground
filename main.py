@@ -81,12 +81,14 @@ def get():
         )
 
     content = [
-        prompt_card("prompt 1"),
+        prompt_card(
+            "List the top 10 most populat repos on GitHub and summarize what they have in common."
+        ),
         prompt_card("hello"),
         prompt_card("ajaja"),
     ]
     return Titled(
-        "Grid Layout Example",
+        "Prompt Gallery",
         copy_script,
         Grid(
             *content,
