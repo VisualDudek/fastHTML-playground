@@ -66,6 +66,36 @@ def get():
     return P("Nice to be here!")
 
 
+@rt("/grid")
+def get():
+    return Titled(
+        "Grid Layout Example",
+        Grid(
+            Div("Cell 1", cls="cell"),
+            Div("Cell 2", cls="cell"),
+            Div("Cell 3", cls="cell"),
+            Div("Cell 4", cls="cell"),
+            cls="grid",
+        ),
+        Style(
+            """
+            .grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* Two columns */
+                grid-template-rows: auto auto; /* Two rows */
+                gap: 10px; /* Space between cells */
+            }
+            .cell {
+                padding: 20px;
+            #     background-color: #f0f0f0;
+            #     border: 1px solid #ccc;
+                text-align: center;
+            }
+        """
+        ),
+    )
+
+
 @rt("/hello")
 def get():
     return Titled("Hello, world!")
