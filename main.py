@@ -189,5 +189,5 @@ def get(req):
 
 
 serve(
-    host="127.0.0.1"
+    #host="127.0.0.1"
 )  # Need this bc js copy script wont run on not secure default 0.0.0.0 host
