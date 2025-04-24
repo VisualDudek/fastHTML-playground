@@ -98,7 +98,7 @@ def get():
 
     content = [
         prompt_card(
-            "List the top 10 most populat repos on GitHub and summarize what they have in common."
+            "List the top 10 most popular repos on GitHub and summarize what they have in common."
         ),
         prompt_card(
             "Summarize the changes in the github/github-mcp-server repo since the v0.1.0 release"
