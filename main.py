@@ -17,10 +17,9 @@ app, rt = fast_app(
 def get():
     copy_script = Script(
         """
-        function copyToClipboardAndNotify(text, element) {
+        function copyToClipboardAndNotify(text) {
             navigator.clipboard.writeText(text).then(() => {
                 console.log('Copied to clipboard:', text);
-                element.style.fontWeight = 'bold';
                 showToast('Text copied to clipboard!');
             }).catch(err => {
                 console.error('Failed to copy:', err);
@@ -52,10 +51,10 @@ def get():
     return Titled(
         "FastHTML",
         copy_script,
-        P("Let's do this!", onclick="copyToClipboardAndNotify(this.innerText, this)"),
+        P("Let's do this!", onclick="copyToClipboardAndNotify(this.innerText)"),
         A(href="/hello")("Go to Hello page"),
         Div(
-            P("Hello", onclick="copyToClipboardAndNotify(this.innerText, this)"),
+            P("Hello", onclick="copyToClipboardAndNotify(this.innerText)"),
             hx_get="/change",
         ),
     )
